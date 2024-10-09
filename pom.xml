@@ -16,13 +16,8 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.12</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.projectlombok</groupId>
-          <artifactId>lombok</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>1.18.12</version> <!-- You can update this to the latest version -->
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -90,6 +85,8 @@
       <version>5.0.9</version>
     </dependency>
   </dependencies>
+
+
 
   <properties>
     <maven.compiler.source>16</maven.compiler.source>
