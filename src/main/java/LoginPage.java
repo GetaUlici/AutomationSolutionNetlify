@@ -137,6 +137,8 @@ public class LoginPage extends BasePage {
 
     public void clickResetButton() {
         resetButton.click();
+        //
+
     }
 
     public WebElement getResetButton() {
