@@ -16,7 +16,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.12</version> <!-- You can update this to the latest version -->
+      <version>1.18.28</version> <!-- You can update this to the latest version -->
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -85,6 +85,7 @@
       <version>5.0.9</version>
     </dependency>
   </dependencies>
+
 <build>
  <plugins>
    <plugin>
@@ -93,6 +94,8 @@
      <version>3.13.0</version>
      <configuration>
        <fork>true</fork>
+       <source>22</source>
+       <target>22</target>
        <compilerArgs>
          <arg>--add-opens</arg>
          <arg>jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
@@ -100,7 +103,6 @@
      </configuration>
    </plugin>
  </plugins>
-
 </build>
 
 
