@@ -2,8 +2,11 @@ import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
+
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
@@ -313,6 +316,36 @@ public class HomepagePage extends BasePage {
     @FindBy(xpath = "(//div[@class='col-md-auto'])[3]")
     private WebElement productPriceShirt;
 
+    @FindBy(css = ".card-link")
+    private WebElement miscProduct;
+
+    public WebElement getMiscProduct() {
+        return miscProduct;
+    }
+
+    @FindBy(css = ".sort-products-select.form-control.form-control-sm")
+    private WebElement sortBar;
+
+    public WebElement getSortBar() {
+        return sortBar;
+    }
+
+    @FindBy(css = ".card-link")
+    private List<WebElement> productElements;
+
+    public List<WebElement> getProductElements() {
+        return productElements;
+    }
+
+    @FindBy(xpath = "//span[@style='font-weight: bold; font-size: 16px;']")
+    private List<WebElement> productPrices;
+
+    public List<WebElement> getProductPrices() {
+        return productPrices;
+    }
+
+
+
     public double productPriceShirt() {
         String priceShirtValue = productPriceShirt.getText();
         String cleanShirtValue = priceShirtValue.replace("$", "");
@@ -330,8 +363,12 @@ public class HomepagePage extends BasePage {
         setUserNameField("dino");
         setPasswordField("choochoo");
         clickLoginBtn();
-        assertEquals(getUserLoggedIn().getText(), "dino");
-        ExtentTestNGITestListener.getTest().log(Status.PASS, "The user Dino is logged in.");
     }
+
+    public void selectOption(WebElement element, String option) {
+        Select optionSelect = new Select(element);
+        optionSelect.selectByVisibleText(option);
+    }
+
 
 }

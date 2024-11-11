@@ -53,84 +53,147 @@ public class LoginTest extends Hooks {
     @Test(description = "Login test")
     public void loginTest() {
         loginPage.clickLoginIcon();
+
+        if (loginPage.getConfirmationLogin().getText().equals("Login")) {
+            ExtentTestNGITestListener.getTest().log(Status.PASS, loginPage.getConfirmationLogin().getText() + " Modal was successfully displayed.");
+        } else {
+            softAssert.fail("Login Modal is not displayed on the page.");
+        }
+
         loginPage.setUserNameField("dino");
         loginPage.setPasswordField("choochoo");
         loginPage.clickLoginButton();
-        assertEquals(loginPage.getUserLoggedIn().getText(), "dino");
-        ExtentTestNGITestListener.getTest().log(Status.PASS, "The user 'dino' is logged in");
+        assertEquals(loginPage.getUserLoggedIn().getText(), "dino", "The user was unable to login.");
+        ExtentTestNGITestListener.getTest().log(Status.PASS, "The user 'dino' is successfully logged in");
+        softAssert.assertAll();
     }
 
-    @Test(description = "Successfully sign out a user")
+    @Test(description = "Successfully sign out a user test")
     public void signOutUserTest() {
         loginPage.loginDino();
-//        assertEquals(loginPage.getUserLoggedIn().getText(), "dino");
-//        ExtentTestNGITestListener.getTest().log(Status.PASS, "The user Dino is logged in.");
+
+        if (loginPage.getUserLoggedIn().getText().equals("dino")) {
+            ExtentTestNGITestListener.getTest().log(Status.PASS, "The user '" + loginPage.getUserLoggedIn().getText() + "' was successfully logged in.");
+        } else {
+            softAssert.fail("The user 'dino' has not successfully log in.");
+        }
+
         loginPage.clickSignOutButton();
+
         try {
             if (loginPage.getUserLoggedIn().isDisplayed()) {
-                Assert.fail("Element is still present.");
+                Assert.fail("Element " + loginPage.getUserLoggedIn().getText() + " is still present even if it's expected not to be.");
             }
         } catch (NoSuchElementException e) {
-            ExtentTestNGITestListener.getTest().log(Status.PASS, "The user Dino is signed out.");
+            ExtentTestNGITestListener.getTest().log(Status.PASS, "The user Dino is successfully signed out.");
             Assert.assertTrue(true, "Element is not present as expected");
         }
+
+        softAssert.assertAll();
     }
 
-    @Test(description = "Entering incorrect username")
+    @Test(description = "Entering incorrect username test")
     public void incorrectUsernameTest() {
         loginPage.clickLoginIcon();
+
+        if (loginPage.getConfirmationLogin().getText().equals("Login")) {
+            ExtentTestNGITestListener.getTest().log(Status.PASS, loginPage.getConfirmationLogin().getText() + " Modal was successfully displayed.");
+        } else {
+            softAssert.fail("Login Modal is not displayed on the page.");
+        }
+
         loginPage.setUserNameField("rino");
         loginPage.setPasswordField("choochoo");
         loginPage.clickLoginButton();
-        assertEquals(loginPage.getErrorMessage().getText(), "Incorrect username or password!");
+        assertEquals(loginPage.getErrorMessage().getText(), "Incorrect username or password!", "No error is displayed when user enters incorrect Username.");
         ExtentTestNGITestListener.getTest().log(Status.PASS, "The user was unable to login, error message is displayed.");
+        softAssert.assertAll();
     }
 
     @Test(description = "Entering incorrect password")
     public void incorrectPasswordTest() {
         loginPage.clickLoginIcon();
+
+        if (loginPage.getConfirmationLogin().getText().equals("Login")) {
+            ExtentTestNGITestListener.getTest().log(Status.PASS, loginPage.getConfirmationLogin().getText() + " Modal was successfully displayed.");
+        } else {
+            softAssert.fail("Login Modal is not displayed on the page.");
+        }
+
         loginPage.setUserNameField("dino");
         loginPage.setPasswordField("choo");
         loginPage.clickLoginButton();
-        assertEquals(loginPage.getErrorMessage().getText(), "Incorrect username or password!");
+        assertEquals(loginPage.getErrorMessage().getText(), "Incorrect username or password!", "No error is displayed when user enters incorrect Password.");
         ExtentTestNGITestListener.getTest().log(Status.PASS, "The user was unable to login, error message is displayed.");
+        softAssert.assertAll();
     }
 
     @Test(description = "Entering incorrect username and incorrect password")
     public void incorrectUsernameAndPasswordTest() {
         loginPage.clickLoginIcon();
+
+        if (loginPage.getConfirmationLogin().getText().equals("Login")) {
+            ExtentTestNGITestListener.getTest().log(Status.PASS, loginPage.getConfirmationLogin().getText() + " Modal was successfully displayed.");
+        } else {
+            softAssert.fail("Login Modal is not displayed on the page.");
+        }
+
         loginPage.setUserNameField("rino");
         loginPage.setPasswordField("choo");
         loginPage.clickLoginButton();
-        assertEquals(loginPage.getErrorMessage().getText(), "Incorrect username or password!");
+        assertEquals(loginPage.getErrorMessage().getText(), "Incorrect username or password!", "No errors are displayed when user introduces incorrect Username ans Password.");
         ExtentTestNGITestListener.getTest().log(Status.PASS, "The user was unable to login, error message is displayed.");
+        softAssert.assertAll();
     }
 
-    @Test(description = "Null username field")
+    @Test(description = "Blank input on username field")
     public void nullUsernameFieldTest() {
         loginPage.clickLoginIcon();
+
+        if (loginPage.getConfirmationLogin().getText().equals("Login")) {
+            ExtentTestNGITestListener.getTest().log(Status.PASS, loginPage.getConfirmationLogin().getText() + " Modal was successfully displayed.");
+        } else {
+            softAssert.fail("Login Modal is not displayed on the page.");
+        }
+
         loginPage.setUserNameField("");
         loginPage.setPasswordField("choochoo");
         loginPage.clickLoginButton();
-        assertEquals(loginPage.getErrorNullUsername().getText(), "Please fill in the username!");
+        assertEquals(loginPage.getErrorNullUsername().getText(), "Please fill in the username!", "No error is displayed when the Username field is submitted empty.");
         ExtentTestNGITestListener.getTest().log(Status.PASS, "The user was unable to login, the Username field was empty, error message is displayed.");
+        softAssert.assertAll();
     }
 
-    @Test(description = "Null password field")
+    @Test(description = "Blank input on  password field")
     public void nullPasswordFieldTest() {
         loginPage.clickLoginIcon();
+
+        if (loginPage.getConfirmationLogin().getText().equals("Login")) {
+            ExtentTestNGITestListener.getTest().log(Status.PASS, loginPage.getConfirmationLogin().getText() + " Modal was successfully displayed.");
+        } else {
+            softAssert.fail("Login Modal is not displayed on the page.");
+        }
+
         loginPage.setUserNameField("dino");
         loginPage.setPasswordField("");
         loginPage.clickLoginButton();
-        assertEquals(loginPage.getErrorNullPassword().getText(), "Please fill in the password!");
+        assertEquals(loginPage.getErrorNullPassword().getText(), "Please fill in the password!", "No error is displayed when the Password field is submitted empty.");
         ExtentTestNGITestListener.getTest().log(Status.PASS, "The user was unable to login, the Password field was empty, error message is displayed.");
+        softAssert.assertAll();
     }
 
     @Test(description = "Clicking Reset when a user is logged in")
     public void resetLoggedUserTest() {
         loginPage.loginDino();
-        //soft assert dino?
+
+        if (loginPage.getUserLoggedIn().getText().equals("dino")) {
+            ExtentTestNGITestListener.getTest().log(Status.PASS, "The user '" + loginPage.getUserLoggedIn().getText() + "' was successfully logged in.");
+        } else {
+            softAssert.fail("The user 'dino' has not successfully log in.");
+        }
+
         loginPage.clickWhenReady(loginPage.getResetButton());
+
         try {
             if (loginPage.getUserLoggedIn().isDisplayed()) {
                 Assert.fail("Element is still present.");
@@ -139,77 +202,8 @@ public class LoginTest extends Hooks {
             ExtentTestNGITestListener.getTest().log(Status.PASS, "The page was reset, the user Dino is signed out.");
             Assert.assertTrue(true, "Element is not present as expected");
         }
+        softAssert.assertAll();
     }
-
-    @Test(description = "Sorting test by name")
-    public void sortTest() throws InterruptedException {
-        loginPage.selectOption(loginPage.getSortBar(), "Sort by name (Z to A)");
-        List<WebElement> productElements = loginPage.getProductElements();
-        List<String> actualProductNames = new ArrayList<>();
-
-        for (WebElement productElement : productElements) {
-            actualProductNames.add(productElement.getText());
-        }
-
-        List<String> expectedProductNames = new ArrayList<>(actualProductNames);
-        expectedProductNames.sort(Comparator.reverseOrder());
-
-        assertEquals(actualProductNames, expectedProductNames, "The products are not sorted in reverse alphabetical order");
-    }
-
-    @Test(description = "Second Sorting test by name ")
-    public void sortTestSecond() throws InterruptedException {
-        loginPage.selectOption(loginPage.getSortBar(), "Sort by name (A to Z)");
-        List<WebElement> productElements = loginPage.getProductElements();
-        List<String> actualProductNames = new ArrayList<>();
-
-        for (WebElement productElement : productElements) {
-            actualProductNames.add(productElement.getText());
-        }
-
-        List<String> expectedProductNames = new ArrayList<>(actualProductNames);
-        expectedProductNames.sort(Comparator.naturalOrder());
-
-        Assert.assertEquals(actualProductNames, expectedProductNames, "The products are not sorted in alphabetical order.");
-    }
-
-    @Test(description = "Sorting test Ascending Price")
-    public void sortingTestAscending() throws InterruptedException {
-        loginPage.selectOption(loginPage.getSortBar(), "Sort by price (low to high)");
-        List<WebElement> productPrices = loginPage.getProductPrices();
-        List<Double> actualProductPrices = new ArrayList<>();
-
-        for (WebElement productPrice : productPrices) {
-            String priceText = productPrice.getText().replace("$", "");
-            actualProductPrices.add(Double.parseDouble(priceText));
-        }
-        System.out.println(actualProductPrices);
-
-        List<Double> expectedPrices = new ArrayList<>(actualProductPrices);
-        Collections.sort(expectedPrices);
-        Assert.assertEquals(actualProductPrices, expectedPrices, "The prices are not ascending");
-
-    }
-
-    @Test(description = "Sorting test Descending price")
-    public void sortTestDescending() throws InterruptedException {
-        loginPage.selectOption(loginPage.getSortBar(), "Sort by price (high to low)");
-        List<WebElement> productPrices = loginPage.getProductPrices();
-        List<Double> actualProductPrices = new ArrayList<>();
-
-        for (WebElement productPrice : productPrices) {
-            String priceText = productPrice.getText().replace("$", "");
-            actualProductPrices.add(Double.parseDouble(priceText));
-        }
-        System.out.println(actualProductPrices);
-
-        List<Double> expectedPrices = new ArrayList<>(actualProductPrices);
-        Collections.sort(expectedPrices, Collections.reverseOrder());
-        Assert.assertEquals(actualProductPrices, expectedPrices, "The prices are not descending");
-
-    }
-
-
 }
 
 

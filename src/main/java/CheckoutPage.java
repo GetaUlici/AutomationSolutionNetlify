@@ -91,22 +91,22 @@ public class CheckoutPage extends BasePage {
     @FindBy(id = "first-name")
     private WebElement firstNameField;
 
-    public void setFirstNameField() {
-        firstNameField.sendKeys("Ioan");
+    public void setFirstNameField(String first) {
+        firstNameField.sendKeys(first);
     }
 
     @FindBy(id = "last-name")
     private WebElement lastNameField;
 
-    public void setLastNameField() {
-        lastNameField.sendKeys("Amariei");
+    public void setLastNameField(String last) {
+        lastNameField.sendKeys(last);
     }
 
     @FindBy(id = "address")
     private WebElement addressField;
 
-    public void setAddressField() {
-        addressField.sendKeys("Acasa la Floresti");
+    public void setAddressField(String address) {
+        addressField.sendKeys(address);
     }
 
     @FindBy(css = ".btn.btn-success")
@@ -326,20 +326,6 @@ public class CheckoutPage extends BasePage {
         return productsConfirmation;
     }
 
-    @FindBy(css = ".svg-inline--fa.fa-question.fa-w-12 ")
-    private WebElement helpButton;
-
-    public void clickHelpButton() {
-        helpButton.click();
-    }
-
-    @FindBy(css = ".modal-title")
-    private WebElement confirmationHelp;
-
-    public WebElement getConfirmationHelp() {
-        return confirmationHelp;
-    }
-
     @FindBy(css = ".svg-inline--fa.fa-undo.fa-w-16 ")
     private WebElement resetButton;
 
@@ -419,6 +405,27 @@ public class CheckoutPage extends BasePage {
     @FindBy(xpath = "(//div[text()='29.99'])[1]")
     private WebElement productPriceShirt;
 
+    @FindBy(css = ".error")
+    private WebElement validationFirstField;
+
+    public WebElement getValidationFirstField() {
+        return validationFirstField;
+    }
+
+    @FindBy(css = ".error")
+    private WebElement validationLastField;
+
+    public WebElement getValidationLastField() {
+        return validationLastField;
+    }
+
+    @FindBy(css = ".error")
+    private WebElement validationAddressField;
+
+    public WebElement getValidationAddressField() {
+        return validationAddressField;
+    }
+
     public double productPriceShirt() {
         String priceShirtValue = productPriceShirt.getText();
         String cleanShirtValue = priceShirtValue.replace("$", "");
@@ -426,9 +433,9 @@ public class CheckoutPage extends BasePage {
     }
 
     public void addDeliveryDetailsToOrder() {
-        setFirstNameField();
-        setLastNameField();
-        setAddressField();
+        setFirstNameField("Ioan");
+        setLastNameField("Amariei");
+        setAddressField("Acasa la Floresti");
     }
 
     public void loginDino() {

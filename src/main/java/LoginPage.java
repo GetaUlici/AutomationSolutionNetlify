@@ -113,18 +113,6 @@ public class LoginPage extends BasePage {
         return errorNullPassword;
     }
 
-    @FindBy(css = ".sort-products-select.form-control.form-control-sm")
-    private WebElement sortBar;
-
-    public WebElement getSortBar() {
-        return sortBar;
-    }
-
-    public void selectOption(WebElement element, String option) {
-        Select optionSelect = new Select(element);
-        optionSelect.selectByVisibleText(option);
-    }
-
     public void loginDino() {
         clickLoginIcon();
         setUserNameField("dino");
@@ -137,26 +125,10 @@ public class LoginPage extends BasePage {
 
     public void clickResetButton() {
         resetButton.click();
-        //
-
     }
 
     public WebElement getResetButton() {
         return resetButton;
-    }
-
-    @FindBy(css = ".card-link")
-    private List<WebElement> productElements;
-
-    public List<WebElement> getProductElements() {
-        return productElements;
-    }
-
-    @FindBy(xpath = "//span[@style='font-weight: bold; font-size: 16px;']")
-    private List<WebElement> productPrices;
-
-    public List<WebElement> getProductPrices() {
-        return productPrices;
     }
 
     @FindBy(css = ".svg-inline--fa.fa-sign-out-alt.fa-w-16 ")
@@ -166,9 +138,15 @@ public class LoginPage extends BasePage {
         signOutButton.click();
     }
 
+    @FindBy(css= ".modal-title.h4")
+    private WebElement confirmationLogin;
+
+    public WebElement getConfirmationLogin() {
+        return confirmationLogin;
+    }
+
     public void clickWhenReady(WebElement locator) {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
     }
-
 }
