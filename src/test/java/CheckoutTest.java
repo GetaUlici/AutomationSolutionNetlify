@@ -373,7 +373,7 @@ public class CheckoutTest extends Hooks {
         checkoutPage.clickCheckoutButton();
         checkoutPage.setFirstNameField("Vasile");
         checkoutPage.setLastNameField("");
-        checkoutPage.setAddressField("Acasa la Floresti");
+        checkoutPage.setAddressField("Casa dulce casa");
         checkoutPage.clickContinueCheckoutButton();
         Assert.assertEquals(checkoutPage.getValidationLastField().getText(), "Last Name is required", "When the required field 'Last Name' is submitted empty, no error is returned.");
         ExtentTestNGITestListener.getTest().log(Status.PASS, "When 'Last Name' field is submitted empty, the error: '" + checkoutPage.getValidationLastField().getText() + "' is displayed.");
