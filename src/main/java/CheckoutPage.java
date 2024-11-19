@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
+import java.util.List;
+
 import static java.lang.Double.parseDouble;
 import static org.testng.Assert.assertEquals;
 
@@ -424,6 +426,13 @@ public class CheckoutPage extends BasePage {
 
     public WebElement getValidationAddressField() {
         return validationAddressField;
+    }
+
+    @FindBy(css = ".error")
+    private List<WebElement> displayedErrors;
+
+    public List<WebElement> getDisplayedErrors() {
+        return displayedErrors;
     }
 
     public double productPriceShirt() {

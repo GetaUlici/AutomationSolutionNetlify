@@ -2,6 +2,7 @@ import com.aventstack.extentreports.Status;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -9,6 +10,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.testng.Assert.*;
 
@@ -427,6 +431,40 @@ public class CheckoutTest extends Hooks {
         } else {
             softAssert.fail("When the required field 'Last Name' is submitted empty, no error is returned.");
         }
+
+        softAssert.assertAll();
+    }
+
+    @Test(description = "When three fields are left empty on Checkout form, three errors should be displayed")
+    public void threeFieldsEmptyTest() {
+        checkoutPage.addAwesomeChipsToCart();
+
+        if (checkoutPage.getAwesomeChipsProduct().getText().equals("Awesome Granite Chips")) {
+            ExtentTestNGITestListener.getTest().log(Status.PASS, "Product found in the shopping cart: " + checkoutPage.getAwesomeChipsProduct().getText());
+        } else {
+            softAssert.fail("Shopping cart was not updated correctly, the product " + checkoutPage.getAwesomeChipsProduct().getText() + " was not found");
+        }
+
+        checkoutPage.clickCheckoutButton();
+        checkoutPage.setFirstNameField("");
+        checkoutPage.setLastNameField("");
+        checkoutPage.setAddressField("");
+        checkoutPage.clickContinueCheckoutButton();
+
+        List<String> expectedErrors = new ArrayList<>();
+        expectedErrors.add("First Name is required");
+        expectedErrors.add("Last Name is required");
+        expectedErrors.add("Address is required");
+
+        List<WebElement> displayedErrors = checkoutPage.getDisplayedErrors();
+
+        List<String> actualDisplayedErrors = new ArrayList<>();
+        for (WebElement displayedError : displayedErrors) {
+            actualDisplayedErrors.add(displayedError.getText());
+        }
+
+        Assert.assertEquals(actualDisplayedErrors, expectedErrors, "Not all errors are displayed, only " + actualDisplayedErrors + " is displayed.");
+        ExtentTestNGITestListener.getTest().log(Status.PASS, "When the user leaves all 3 mandatory fields empty, 3 errors are displayed: " + actualDisplayedErrors);
 
         softAssert.assertAll();
     }
